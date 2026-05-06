@@ -33,7 +33,8 @@ namespace RpgApi.Data
             modelBuilder.Entity<Personagem>().ToTable("TB_PERSONAGENS");
             modelBuilder.Entity<Arma>().ToTable("TB_ARMAS");
             modelBuilder.Entity<Usuario>().ToTable("TB_USUARIOS");  
-
+            modelBuilder.Entity<Habilidade>().ToTable("TB_HABILIDADES");
+            modelBuilder.Entity<PersonagemHabilidade>().ToTable("TB_PERSONAGENS_HABILIDADES");
 
             modelBuilder.Entity<Personagem>().HasData
             (
@@ -48,15 +49,37 @@ namespace RpgApi.Data
 
             modelBuilder.Entity<Arma>().HasData
            (
-        new Arma() { Id = 1, Nome = "Arco e Flecha", Dano = 35},
-        new Arma() { Id = 2, Nome = "Espada", Dano = 33},
-        new Arma() { Id = 3, Nome = "Machado", Dano = 31},
-        new Arma() { Id = 4, Nome = "Punho", Dano = 30},
-        new Arma() { Id = 5, Nome = "Chicote", Dano = 34},
-        new Arma() { Id = 6, Nome = "Foice", Dano = 33},
-        new Arma() { Id = 7, Nome = "Cajado", Dano = 32}
+        new Arma() { Id = 1, Nome = "Arco e Flecha", Dano = 35, PersonagemId = 1 },
+        new Arma() { Id = 2, Nome = "Espada", Dano = 33, PersonagemId = 2 },
+        new Arma() { Id = 3, Nome = "Machado", Dano = 31, PersonagemId = 3 },
+        new Arma() { Id = 4, Nome = "Punho", Dano = 30, PersonagemId = 4 },
+        new Arma() { Id = 5, Nome = "Chicote", Dano = 34, PersonagemId = 5 },
+        new Arma() { Id = 6, Nome = "Foice", Dano = 33, PersonagemId = 6 },
+        new Arma() { Id = 7, Nome = "Cajado", Dano = 32, PersonagemId = 7 }
            );
+            modelBuilder.Entity<PersonagemHabilidade>()
+                    .HasKey(ph => new {ph.PersonagemId, ph.HabilidadeId });
+            
+            modelBuilder.Entity<Habilidade>().HasData
+            (
+                new Habilidade(){Id=1, Nome="Adormecer", Dano=39},
+                new Habilidade(){Id=2, Nome="Congelar", Dano=41},
+                new Habilidade(){Id=3, Nome="Hipnotizar", Dano=37}
+            );
+            modelBuilder.Entity<PersonagemHabilidade>().HasData
+            (
+                new PersonagemHabilidade() { PersonagemId = 1, HabilidadeId = 1},
+                new PersonagemHabilidade() { PersonagemId = 1, HabilidadeId = 2},
+                new PersonagemHabilidade() { PersonagemId = 2, HabilidadeId = 2},
+                new PersonagemHabilidade() { PersonagemId = 3, HabilidadeId = 2},
+                new PersonagemHabilidade() { PersonagemId = 3, HabilidadeId = 3},
+                new PersonagemHabilidade() { PersonagemId = 4, HabilidadeId = 3},
+                new PersonagemHabilidade() { PersonagemId = 5, HabilidadeId = 1},
+                new PersonagemHabilidade() { PersonagemId = 6, HabilidadeId = 2},
+                new PersonagemHabilidade() { PersonagemId = 7, HabilidadeId = 3}
+            );
 
+            
             modelBuilder.Entity<Usuario>()
             .HasMany(e => e.personagens)
             .WithOne(e => e.Usuario)
