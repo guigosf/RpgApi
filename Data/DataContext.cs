@@ -27,6 +27,8 @@ namespace RpgApi.Data
         public DbSet<Personagem> TB_PERSONAGENS { get; set; }
         public DbSet<Arma> TB_Armas { get; set; }
         public DbSet<Usuario> TB_USUARIOS { get; set; }
+        public DbSet<Habilidade> TB_HABILIDADES { get; set; }
+        public DbSet<PersonagemHabilidade> TB_PERSONAGENS_HABILIDADES { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -79,7 +81,7 @@ namespace RpgApi.Data
                 new PersonagemHabilidade() { PersonagemId = 7, HabilidadeId = 3}
             );
 
-            
+
             modelBuilder.Entity<Usuario>()
             .HasMany(e => e.personagens)
             .WithOne(e => e.Usuario)
@@ -96,7 +98,7 @@ namespace RpgApi.Data
             Usuario user = new Usuario();
             Criptografia.CriarPasswordHash("123456", out byte[] hash, out byte[]salt);
             user.Id = 1;
-            user.Usernme = "UsuarioAdmin";
+            user.Username = "UsuarioAdmin";
             user.PasswordString = string.Empty;
             user.PasswordHash = hash;
             user.PasswordSalt = salt;

@@ -15,5 +15,10 @@ namespace RpgApi.Utils
                 hash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+
+        internal static bool VerificarPasswordHash(string passwordString, byte[]? passwordHash, byte[]? passwordSalt)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
