@@ -27,6 +27,7 @@ namespace RpgApi.Models
         public int? UsuarioId { get; set; }
 
         public int Id { get; set; }
+        
         [JsonIgnore]
         public Usuario? Usuario { get; set; }
 

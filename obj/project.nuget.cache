@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "2DPRsHKEgUA=",
+  "dgSpecHash": "91xqNThTP6k=",
   "success": true,
   "projectFilePath": "D:\\guilherme\\ds\\RpgApi\\RpgApi.csproj",
   "expectedPackageFiles": [
     "D:\\NugetPackages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "D:\\NugetPackages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
     "D:\\NugetPackages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "D:\\NugetPackages\\microsoft.aspnetcore.jsonpatch\\10.0.8\\microsoft.aspnetcore.jsonpatch.10.0.8.nupkg.sha512",
+    "D:\\NugetPackages\\microsoft.aspnetcore.mvc.newtonsoftjson\\10.0.8\\microsoft.aspnetcore.mvc.newtonsoftjson.10.0.8.nupkg.sha512",
     "D:\\NugetPackages\\microsoft.aspnetcore.openapi\\10.0.1\\microsoft.aspnetcore.openapi.10.0.1.nupkg.sha512",
     "D:\\NugetPackages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "D:\\NugetPackages\\microsoft.bcl.cryptography\\9.0.4\\microsoft.bcl.cryptography.9.0.4.nupkg.sha512",
@@ -39,6 +41,7 @@
     "D:\\NugetPackages\\microsoft.visualstudio.solutionpersistence\\1.0.52\\microsoft.visualstudio.solutionpersistence.1.0.52.nupkg.sha512",
     "D:\\NugetPackages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "D:\\NugetPackages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "D:\\NugetPackages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "D:\\NugetPackages\\system.clientmodel\\1.5.1\\system.clientmodel.1.5.1.nupkg.sha512",
     "D:\\NugetPackages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "D:\\NugetPackages\\system.composition\\9.0.0\\system.composition.9.0.0.nupkg.sha512",
