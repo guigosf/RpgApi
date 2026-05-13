@@ -36,8 +36,8 @@ namespace RpgApi.Controllers
                     throw new System.Exception("Habilidade não encontrada.");
 
                     PersonagemHabilidade ph = new PersonagemHabilidade();
-                    ph.Personagem = personagem;
-                    ph.Habilidade = habilidade;
+                ph.Personagem = personagem;
+                ph.Habilidade = habilidade;
                     await _context.TB_PERSONAGENS_HABILIDADES.AddAsync(ph);
                     int LinhasAfetadas = await _context.SaveChangesAsync();
                     return Ok(LinhasAfetadas);

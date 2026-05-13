@@ -50,29 +50,14 @@ namespace RpgApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        public static bool VerificarPasswordHash(string password, byte[] hash, byte[] salt)
-        {
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(salt))
-            {
-                var computedHash =
-                hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != hash[i])
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
+       
         [HttpPost("Autenticar")]
         public async Task<IActionResult> AutenticarUsuario(Usuario credenciais)
         {
             try
             {
                 Usuario? usuario = await _context.TB_USUARIOS
-                .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
+                .FirstOrDefaultAsync(x => x.Usernme.ToLower().Equals(credenciais.Usernme.ToLower()));
                 if (usuario == null)
                 {
                     throw new System.Exception("Usuário não encontrado.");
