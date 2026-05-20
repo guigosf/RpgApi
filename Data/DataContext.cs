@@ -29,6 +29,7 @@ namespace RpgApi.Data
         public DbSet<Usuario> TB_USUARIOS { get; set; }
         public DbSet<Habilidade> TB_HABILIDADES { get; set; }
         public DbSet<PersonagemHabilidade> TB_PERSONAGENS_HABILIDADES { get; set; }
+        public DbSet<Disputa> TB_DISPUTAS { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +38,7 @@ namespace RpgApi.Data
             modelBuilder.Entity<Usuario>().ToTable("TB_USUARIOS");  
             modelBuilder.Entity<Habilidade>().ToTable("TB_HABILIDADES");
             modelBuilder.Entity<PersonagemHabilidade>().ToTable("TB_PERSONAGENS_HABILIDADES");
+            modelBuilder.Entity<Disputa>().ToTable("TB_DISPUTAS");
 
             modelBuilder.Entity<Personagem>().HasData
             (
@@ -112,6 +114,13 @@ namespace RpgApi.Data
 
             //Define que se o Perfil não for informado, o valor padrão será jogador
             modelBuilder.Entity<Usuario>().Property(u => u.Perfil).HasDefaultValue("Jogador");
+
+            modelBuilder.Entity<Disputa>().HasKey(d => d.Id);//Indicação da chabe primária da entidade.
+            //Abaixo fica o mapeamento do nome das colunas da tabela para as propriedades da classe.
+            modelBuilder.Entity<Disputa>().Property(d => d.DataDisputa).HasColumnName("Dt_Disputa");
+            modelBuilder.Entity<Disputa>().Property(d => d.AtacanteId).HasColumnName("AtacanteId");
+            modelBuilder.Entity<Disputa>().Property(d => d.OponenteId).HasColumnName("OponenteId");
+            modelBuilder.Entity<Disputa>().Property(d => d.Narracao).HasColumnName("Tx_Narracao");
         }//Fim do método OnModelCreating
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
