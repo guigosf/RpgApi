@@ -13,8 +13,8 @@ namespace RpgApi.Models
         public byte[]? PasswordHash { get; set; }
         public byte[]? PasswordSalt { get; set; }
         public byte[]? Foto { get; set; }
-        public double? latitude { get; set; }
-        public double? longitude { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
         public DateTime? DataAcesso { get; set; } //using System;00
 
         [NotMapped] //using System.ComponentModel.DataAnnotations.Schema

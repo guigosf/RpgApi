@@ -106,8 +106,8 @@ namespace RpgApi.Data
             user.PasswordSalt = salt;
             user.Perfil = "Admin";
             user.Email = "seuEmail@gmail.com";
-            user.latitude = -23.5200241;
-            user.longitude = -46.596498;
+            user.Latitude = -23.5200241;
+            user.Longitude = -46.596498;
 
             modelBuilder.Entity<Usuario>().HasData(user);
             //Fim da criação do usuário padrão
