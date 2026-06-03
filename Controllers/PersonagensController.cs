@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RpgApi.Data;
+using RpgApi.Extensions;
 using RpgApi.Models;
 
 namespace RpgApi.Controllers
 {
+    [Authorize(Roles = "Jogador, Admin")]
     [ApiController]
     [Route("[controller]")]
     public class PersonagensController : ControllerBase
@@ -37,7 +40,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
 
@@ -51,7 +54,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
 
@@ -63,6 +66,13 @@ namespace RpgApi.Controllers
                 if (novoPersonagem.PontosVida > 100)
                 {
                     throw new Exception("Pontos de vida não pode ser maior que 100");
+
+                novoPersonagem.Usuario = _context.TB_USUARIOS.FirstOrDefault(uBusca => uBusca.Id == User.UsuarioId());
+
+                await _context.TB_PERSONAGENS.AddAsync(novoPersonagem);
+                await _context.SaveChangesAsync();
+
+                return Ok(novoPersonagem.Id);
                 }
                 await _context.TB_PERSONAGENS.AddAsync(novoPersonagem);
                 await _context.SaveChangesAsync();
@@ -70,7 +80,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
 
@@ -82,6 +92,13 @@ namespace RpgApi.Controllers
                 if (novoPersonagem.PontosVida > 100)
                 {
                     throw new System.Exception("Pontos de vida não pode ser maior que 100");
+
+                novoPersonagem.Usuario = _context.TB_USUARIOS.FirstOrDefault(uBusca => uBusca.Id == User.UsuarioId());
+
+                await _context.TB_PERSONAGENS.AddAsync(novoPersonagem);
+                await _context.SaveChangesAsync();
+
+                return Ok(novoPersonagem.Id);
                 }
                 _context.TB_PERSONAGENS.Update(novoPersonagem);
                 int linhasAfetadas = await _context.SaveChangesAsync();
@@ -90,7 +107,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
 
@@ -106,7 +123,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
         [HttpPut("RestaurarPontosVida")]
@@ -127,7 +144,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
 
             }
         }
@@ -147,7 +164,9 @@ namespace RpgApi.Controllers
                 return Ok(linhasAfetadas);
             }
             catch (System.Exception ex)
-            { return BadRequest(ex.Message); }
+            {
+                return BadRequest(ex.Message + " - " + ex.InnerException);
+            }
         }
         [HttpPut("ZerarRanking")]
         public async Task<IActionResult> ZerarRankingAsync(Personagem p)
@@ -171,7 +190,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
         [HttpPut("ZerarRankingRestaurarVidas")]
@@ -190,7 +209,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
         [HttpGet("GetByUser/{userId}")]
@@ -205,7 +224,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
         [HttpGet("GetByPerfil/{userId}")]
@@ -225,7 +244,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
         [HttpGet("GetByNomeAproximado/{nomePersonagem}")]
@@ -240,7 +259,44 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
+            }
+        }
+        [HttpGet("GetByUser")]
+        public async Task<IActionResult> GetByUserAsync()
+        {
+            try
+            {
+                int id = User.UsuarioId();
+
+                List<Personagem> lista = await _context.TB_PERSONAGENS
+                    .Where(u => u.UsuarioId == id)
+                    .ToListAsync();
+
+                    return Ok (lista);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message + " - " + ex.InnerException);
+            }
+        }
+        [HttpGet("GetByPerfil")]
+        public async Task<IActionResult> GetByPerfilAsync()
+        {
+            try
+            {
+                List<Personagem> lista = new List<Personagem>();
+
+                if (User.UsuarioPerfil() == "Admin")
+                    lista = await _context.TB_PERSONAGENS.ToListAsync();
+                else
+                    lista = await _context.TB_PERSONAGENS
+                        .Where(p => p.Usuario.Id == User.UsuarioId()).ToListAsync();
+                return Ok(lista);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
     }

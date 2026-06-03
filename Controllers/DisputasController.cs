@@ -65,7 +65,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
         [HttpPost("Habilidade")]
@@ -119,7 +119,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
         [HttpGet("PersonagemRandom")]
@@ -254,7 +254,7 @@ namespace RpgApi.Controllers
             catch (System.Exception ex)
             {
 
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
         [HttpDelete("ApagarDisputas")]
@@ -281,7 +281,7 @@ namespace RpgApi.Controllers
             }
             catch (System.Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message + " - " + ex.InnerException);
             }
         }
     }
